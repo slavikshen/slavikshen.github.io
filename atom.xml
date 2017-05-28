@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://slavikshen.github.io/"/>
-  <updated>2017-05-28T20:22:12.000Z</updated>
+  <updated>2017-05-28T20:40:01.000Z</updated>
   <id>http://slavikshen.github.io/</id>
   
   <author>
@@ -16,13 +16,25 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hexo Theme</title>
+    <title>Hexo 主题设置</title>
     <link href="http://slavikshen.github.io/2017/05/28/Hexo-Theme/"/>
     <id>http://slavikshen.github.io/2017/05/28/Hexo-Theme/</id>
     <published>2017-05-28T20:22:12.000Z</published>
-    <updated>2017-05-28T20:22:12.000Z</updated>
+    <updated>2017-05-28T20:40:01.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="找资源"><a href="#找资源" class="headerlink" title="找资源"></a>找资源</h2><p><a href="https://hexo.io/themes/" target="_blank" rel="external">官方网站</a><br><a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="external">Github</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>复制或者git clone内容到themes下。<br>每个主题可能会有特殊的模块依赖关系。</p>
+<p>我选了<a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank" rel="external">Apollo主题</a></p>
+<p>因为会需要修改内容，所以先Folk，然后同步了自己分支下的内容安装。</p>
+<h2 id="自定义"><a href="#自定义" class="headerlink" title="自定义"></a>自定义</h2><p>需求，替换导航条，替换Favicon，去掉Logo</p>
+<p>因为懒的逐行看代码，用全局搜索，寻找关键字。</p>
+<p>导航条的超链接内容在themes/apollo/_config.yml里，布局在themes/apollo/layout/partial/layout.jade。</p>
+<p>Favicon.png可以直接替换。</p>
+]]></content>
     
     <summary type="html">
+    
+      &lt;h2 id=&quot;找资源&quot;&gt;&lt;a href=&quot;#找资源&quot; class=&quot;headerlink&quot; title=&quot;找资源&quot;&gt;&lt;/a&gt;找资源&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://hexo.io/themes/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官
     
     </summary>
     
