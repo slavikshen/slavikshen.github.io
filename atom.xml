@@ -5,25 +5,67 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://slavikshen.github.io/"/>
-  <updated>2017-05-29T14:47:56.000Z</updated>
+  <updated>2017-05-29T19:25:19.000Z</updated>
   <id>https://slavikshen.github.io/</id>
   
   <author>
-    <name>沈於众 slavik.shen</name>
+    <name>slavik.shen</name>
     
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>为Hexo项目配置VSCode</title>
-    <link href="https://slavikshen.github.io/2017/05/28/Set-up-VSCode-for-Hexo-Project/"/>
-    <id>https://slavikshen.github.io/2017/05/28/Set-up-VSCode-for-Hexo-Project/</id>
-    <published>2017-05-28T20:53:05.000Z</published>
-    <updated>2017-05-29T14:47:56.000Z</updated>
+    <title>搭建Hexo博客系统</title>
+    <link href="https://slavikshen.github.io/2017/05/28/Hexo-Setup/"/>
+    <id>https://slavikshen.github.io/2017/05/28/Hexo-Setup/</id>
+    <published>2017-05-28T19:00:26.000Z</published>
+    <updated>2017-05-29T19:25:19.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>方便在VSCode环境下更新Hexo内容，减少终端窗口。</p>
-<h2 id="NPM-Package设置"><a href="#NPM-Package设置" class="headerlink" title="NPM Package设置"></a>NPM Package设置</h2><p>增加简化脚本命令</p>
+    <content type="html"><![CDATA[<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>因为Mac已经有XCode自带的Git和Node.js开发环境，所以直接安装。</p>
+<p>中间遇到了恶心的Log环境问题（DTraceProviderBindings）。不明白为啥这么多人喜欢用bunyan。参考<a href="https://kikoroc.com/2016/05/04/resolve-hexo-DTraceProviderBindings-MODULE-NOT-FOUND.html" target="_blank" rel="external">kikiroc</a>上的方法解决。</p>
+<pre class=" language-sh"><code class="language-sh">$ npm install -g -hexo-cli --op-optional
+</code></pre>
+<p>如果之后还是出现DTraceProviderBindings的错误，可以在项目删除这个模块。因为没有必要调试Hexo</p>
+<pre class=" language-sh"><code class="language-sh">$ npm uninstall dtrace-provider
+</code></pre>
+<p>按照<a href="https://hexo.io/docs/setup.html" target="_blank" rel="external">Hexo手册</a>上说的配置。十分顺利。</p>
+<pre class=" language-sh"><code class="language-sh">$ hexo init myblog
+$ cd myblog
+$ npm install
+</code></pre>
+<p>编辑_config.yml的时候遇到一个问题，时区设置不支持UTC+的表示方法。必须填写名称。还好有wiki上的<a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank" rel="external">时区名称列表</a>。</p>
+<p>如果时区设置错误，所有hexo命令都不会有正确结果。因为他们都是按照时间戳判断文章是不是应该加入内容更新。</p>
+<p>启动本地测试环境</p>
+<pre class=" language-sh"><code class="language-sh">$ hexo generate
+$ hexo server
+</code></pre>
+<p>打开<a href="http://localhost:4000/" target="_blank" rel="external">Hexo本地测试服务器</a>，一切顺利</p>
+<h2 id="发布到GitHub"><a href="#发布到GitHub" class="headerlink" title="发布到GitHub"></a>发布到GitHub</h2><p>需要插件hexo-deployer-git</p>
+<p>参考<a href="https://gist.github.com/btfak/18938572f5df000ebe06fbd1872e4e39" target="_blank" rel="external">安装方法</a></p>
+<pre class=" language-sh"><code class="language-sh">$ npm install hexo-deployer-git --save
+</code></pre>
+<p>向_config.yml增加git设置</p>
+<pre class=" language-yml"><code class="language-yml"># Deployment
+## Docs: http://hexo.io/docs/deployment.html
+deploy:
+    type: git
+    repo: git@github.com:slavikshen/slavikshen.github.io.git
+    branch: master
+</code></pre>
+<p>测试提交</p>
+<pre class=" language-sh"><code class="language-sh">hexo deploy
+</code></pre>
+<h2 id="设置皮肤"><a href="#设置皮肤" class="headerlink" title="设置皮肤"></a>设置皮肤</h2><p>先寻找资源<br><a href="https://hexo.io/themes/" target="_blank" rel="external">官方网站</a><br><a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="external">Github</a></p>
+<p>复制或者git clone内容到themes下。每个主题可能会有特殊的模块依赖关系。</p>
+<p>最后选了Artchen的<a href="https://github.com/artchen/hexo-theme-typescript" target="_blank" rel="external">Typescript</a>。实现很干净，方便修改。</p>
+<p>因为会需要修改内容，所以先Fork，然后同步了自己分支下的内容安装。</p>
+<p>安装依赖的模块，并把Typescript加为submodule，方便以后同步。</p>
+<pre class=" language-sh"><code class="language-sh">npm i --save hexo-generator-tag hexo-renderer-ejs hexo-renderer-less hexo-renderer-marked hexo-pagination
+git submodule add https://github.com/slavikshen/hexo-theme-typescript.git themes/typescript
+</code></pre>
+<h2 id="配置VSCode环境"><a href="#配置VSCode环境" class="headerlink" title="配置VSCode环境"></a>配置VSCode环境</h2><p>为了方便更新Hexo内容，减少终端窗口，决定采用VSCode的Task功能。</p>
+<p>首先在package.json里增加脚本功能。</p>
 <pre class=" language-json"><code class="language-json"><span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"deploy"</span><span class="token operator">:</span> <span class="token string">"hexo clean &amp;&amp; hexo deploy;"</span><span class="token punctuation">,</span>
     <span class="token property">"hot-server"</span><span class="token operator">:</span> <span class="token string">"hexo server &amp; hexo generate --watch"</span>
@@ -35,7 +77,8 @@
 <p>hot-server简化启动内容变化监视和本地测试服务器。</p>
 <pre class=" language-sh"><code class="language-sh">$ npm run hot-server
 </code></pre>
-<h2 id="配置VSCode-Task"><a href="#配置VSCode-Task" class="headerlink" title="配置VSCode Task"></a>配置VSCode Task</h2><pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
+<p>然后创建.vscode\task.json</p>
+<pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
     <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"0.1.0"</span><span class="token punctuation">,</span>
     <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"npm"</span><span class="token punctuation">,</span>
     <span class="token property">"isShellCommand"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
@@ -55,89 +98,12 @@
     <span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>调出VSCode命令窗口 <kbd>CMD/CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd></kbd>，输入test。</p>
-<p>在Output会出现测试服务器和内容变化监控的启动信息</p>
+<p>调出VSCode命令窗口 <kbd>CMD/CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd></kbd>，输入test。</p>
+<p>在Output会出现测试服务器和内容变化监控的启动信息。</p>
 <pre class=" language-sh"><code class="language-sh">> hexo-site@0.0.0 hot-server /Users/slavik/Documents/myblog
 > hexo server & hexo generate --watch
 
 INFO    Start processing
-</code></pre>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;目的&quot;&gt;&lt;a href=&quot;#目的&quot; class=&quot;headerlink&quot; title=&quot;目的&quot;&gt;&lt;/a&gt;目的&lt;/h2&gt;&lt;p&gt;方便在VSCode环境下更新Hexo内容，减少终端窗口。&lt;/p&gt;
-&lt;h2 id=&quot;NPM-Package设置&quot;&gt;&lt;a href=&quot;#NPM-
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo 主题设置</title>
-    <link href="https://slavikshen.github.io/2017/05/28/Hexo-Theme/"/>
-    <id>https://slavikshen.github.io/2017/05/28/Hexo-Theme/</id>
-    <published>2017-05-28T20:22:12.000Z</published>
-    <updated>2017-05-28T20:40:01.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="找资源"><a href="#找资源" class="headerlink" title="找资源"></a>找资源</h2><p><a href="https://hexo.io/themes/" target="_blank" rel="external">官方网站</a><br><a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="external">Github</a></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>复制或者git clone内容到themes下。<br>每个主题可能会有特殊的模块依赖关系。</p>
-<p>我选了<a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank" rel="external">Apollo主题</a></p>
-<p>因为会需要修改内容，所以先Folk，然后同步了自己分支下的内容安装。</p>
-<h2 id="自定义"><a href="#自定义" class="headerlink" title="自定义"></a>自定义</h2><p>需求，替换导航条，替换Favicon，去掉Logo</p>
-<p>因为懒的逐行看代码，用全局搜索，寻找关键字。</p>
-<p>导航条的超链接内容在themes/apollo/_config.yml里，布局在themes/apollo/layout/partial/layout.jade。</p>
-<p>Favicon.png可以直接替换。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;找资源&quot;&gt;&lt;a href=&quot;#找资源&quot; class=&quot;headerlink&quot; title=&quot;找资源&quot;&gt;&lt;/a&gt;找资源&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://hexo.io/themes/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>搭建Hexo</title>
-    <link href="https://slavikshen.github.io/2017/05/28/Hexo-Setup/"/>
-    <id>https://slavikshen.github.io/2017/05/28/Hexo-Setup/</id>
-    <published>2017-05-28T19:00:26.000Z</published>
-    <updated>2017-05-28T20:26:24.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>因为Mac已经有XCode自带的Git和Node.js开发环境，所以直接安装。</p>
-<p>中间遇到了恶心的Log环境问题（DTraceProviderBindings）。不明白为啥这么多人喜欢用bunyan。参考<a href="https://kikoroc.com/2016/05/04/resolve-hexo-DTraceProviderBindings-MODULE-NOT-FOUND.html" target="_blank" rel="external">kikiroc</a>上的方法解决。</p>
-<pre class=" language-sh"><code class="language-sh">$ npm install -g -hexo-cli --op-optional
-</code></pre>
-<p>如果之后还是出现DTraceProviderBindings的错误，可以在项目删除这个模块。因为没有必要调试Hexo</p>
-<pre class=" language-sh"><code class="language-sh">$ npm uninstall dtrace-provider
-</code></pre>
-<h2 id="配置项目"><a href="#配置项目" class="headerlink" title="配置项目"></a>配置项目</h2><p>和<a href="https://hexo.io/docs/setup.html" target="_blank" rel="external">Hexo手册</a>上说的完全一样。十分顺利。</p>
-<pre class=" language-sh"><code class="language-sh">$ hexo init myblog
-$ cd myblog
-$ npm install
-</code></pre>
-<p>编辑_config.yml的时候遇到一个问题，时区设置不支持UTC+的表示方法。必须填写名称。还好有wiki上的<a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank" rel="external">时区名称列表</a>。</p>
-<p>如果时区设置错误，所有hexo命令都不会有正确结果。因为他们都是按照时间戳判断文章是不是应该加入内容更新。</p>
-<h2 id="启动本地测试环境"><a href="#启动本地测试环境" class="headerlink" title="启动本地测试环境"></a>启动本地测试环境</h2><pre class=" language-sh"><code class="language-sh">$ hexo generate
-$ hexo server
-</code></pre>
-<p>打开<a href="http://localhost:4000/" target="_blank" rel="external">Hexo本地测试服务器</a>，一切顺利</p>
-<h2 id="发布到GitHub"><a href="#发布到GitHub" class="headerlink" title="发布到GitHub"></a>发布到GitHub</h2><p>需要插件hexo-deployer-git</p>
-<p>参考<a href="https://gist.github.com/btfak/18938572f5df000ebe06fbd1872e4e39" target="_blank" rel="external">安装方法</a></p>
-<pre class=" language-sh"><code class="language-sh">$ npm install hexo-deployer-git --save
-</code></pre>
-<p>向_config.yml增加git设置</p>
-<pre class=" language-yml"><code class="language-yml"># Deployment
-## Docs: http://hexo.io/docs/deployment.html
-deploy:
-    type: git
-    repo: git@github.com:slavikshen/slavikshen.github.io.git
-    branch: master
-</code></pre>
-<h2 id="完成"><a href="#完成" class="headerlink" title="完成"></a>完成</h2><pre class=" language-sh"><code class="language-sh">hexo deploy
 </code></pre>
 ]]></content>
     
@@ -148,6 +114,14 @@ deploy:
     
     </summary>
     
+      <category term="system" scheme="https://slavikshen.github.io/categories/system/"/>
+    
+    
+      <category term="Hexo" scheme="https://slavikshen.github.io/tags/Hexo/"/>
+    
+      <category term="NPM" scheme="https://slavikshen.github.io/tags/NPM/"/>
+    
+      <category term="Node.js" scheme="https://slavikshen.github.io/tags/Node-js/"/>
     
   </entry>
   
