@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  
-  <title>为Hexo项目配置VSCode | 魔法使いの手帳</title>
-  <meta name="description" content="魔法使いの手帳" />
-  <meta name="keywords" content="programming, javascript, ReactJS, hexo, photograph, gunpla" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="目的方便在VSCode环境下更新Hexo内容，减少终端窗口。 NPM Package设置增加简化脚本命令 &quot;scripts&quot;: {     &quot;deploy&quot;: &quot;hexo clean &amp;amp;&amp;amp; hexo deploy;&quot;,     &quot;hot-server&quot;: &quot;hexo server &amp;amp; hexo generate --watch&quot; }  deploy方便提交内容。 $ npm">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	
+	<title>为Hexo项目配置VSCode | 魔法使いの手帳</title>
+	<meta name="description" content="魔法使いの手帳" />
+	<meta name="keywords" content="programming, javascript, ReactJS, hexo, photograph, gunpla" />
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="description" content="目的方便在VSCode环境下更新Hexo内容，减少终端窗口。 NPM Package设置增加简化脚本命令 &quot;scripts&quot;: {     &quot;deploy&quot;: &quot;hexo clean &amp;amp;&amp;amp; hexo deploy;&quot;,     &quot;hot-server&quot;: &quot;hexo server &amp;amp; hexo generate --watch&quot; }  deploy方便提交内容。 $ npm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为Hexo项目配置VSCode">
 <meta property="og:url" content="https://slavikshen.github.io/2017/05/28/Set-up-VSCode-for-Hexo-Project/index.html">
@@ -20,20 +20,29 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为Hexo项目配置VSCode">
 <meta name="twitter:description" content="目的方便在VSCode环境下更新Hexo内容，减少终端窗口。 NPM Package设置增加简化脚本命令 &quot;scripts&quot;: {     &quot;deploy&quot;: &quot;hexo clean &amp;amp;&amp;amp; hexo deploy;&quot;,     &quot;hot-server&quot;: &quot;hexo server &amp;amp; hexo generate --watch&quot; }  deploy方便提交内容。 $ npm">
-  
-  
-    <link rel="icon" href="/images/favicon.png">
-  
-
-	<script src="https://use.typekit.net/eyf3hir.js"></script>
-  <script>try{Typekit.load({ async: false });}catch(e){}</script>
-  <link rel="stylesheet" href="/style.css">
-  <script>
-    function setLoadingBarProgress(num) {
-      document.getElementById('loading-bar').style.width=num+"%";
-    }
-  </script>
-  
+	
+	
+		<link rel="icon" href="/images/favicon.png">
+	
+	
+	<!-- typekit source open san -->
+	<script>
+	(function(d) {
+		var config = {
+			kitId: 'ddk2nzk',
+			scriptTimeout: 3000,
+			async: true
+		},
+		h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+	})(document);
+	</script>
+	<link rel="stylesheet" href="/style.css">
+	<script>
+		function setLoadingBarProgress(num) {
+			document.getElementById('loading-bar').style.width=num+"%";
+		}
+	</script>
+	
 <!-- Google Analytics -->
 <script type="text/javascript">
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -230,18 +239,6 @@ INFO    Start processing
 
 
 	<script>setLoadingBarProgress(100);</script>
-
-	<!-- typekit source open san -->
-	<script>
-	(function(d) {
-		var config = {
-			kitId: 'ddk2nzk',
-			scriptTimeout: 3000,
-			async: true
-		},
-		h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
-	})(document);
-	</script>
 	
 </body>
 </html>
